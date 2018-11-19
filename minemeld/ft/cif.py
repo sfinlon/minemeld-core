@@ -23,6 +23,9 @@ import yaml
 
 import cifsdk.client
 import cifsdk.constants
+from cifsdk.format import factory as format_factory
+from cifsdk.feed import factory as feed_factory
+
 
 from . import basepoller
 
@@ -168,15 +171,21 @@ class Feed(basepoller.BasePollerFT):
 
         ret = cifclient.aggregate(ret)
 
+        if len(ret) != number_returned:
+            LOG.info('aggregation removed: {0} records'.format(number_returned - len(ret)))
+
         ret = f().process(ret, wl)
 
         try:
-            ret = f(ret, cols=options['fields'].split(','))
+            if len(ret) >= 1:
+                ret = f(ret, cols=options['fields'].split(','))
+                return ujson.loads(ret)
+
+            else:
+                LOG.info("no CIF results found...")
 
         except SystemExit as e:
             raise RuntimeError(str(e))
-
-        return ujson.loads(ret)
 
     def hup(self, source=None):
         LOG.info('%s - hup received, reload side config', self.name)
