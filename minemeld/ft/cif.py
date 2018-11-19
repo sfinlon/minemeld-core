@@ -172,7 +172,7 @@ class Feed(basepoller.BasePollerFT):
 
         try:
             if len(ret) >= 1:
-                ret = f(ret, cols=self.fields.split(','))
+                ret = f(ret, cols=self.config.get('fields', cifsdk.constants.FIELDS).split(','))
                 return ujson.loads(ret)
 
             else:
