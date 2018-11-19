@@ -131,6 +131,8 @@ class Feed(basepoller.BasePollerFT):
         filters = {}
         filters.update(self.filters)
 
+        self.filters['limit'] = '25'
+
         days = filters.pop('days', self.initial_days)
         now = arrow.get(now/1000.0)
 
@@ -162,7 +164,7 @@ class Feed(basepoller.BasePollerFT):
 
         wl_filters['reporttime'] = '{0}Z'.format(now.format('YYYY-MM-DDTHH:mm:ss'))
 
-        wl = cifclient.search(limit=cifsdk.constants.WHITELIST_LIMIT, nolog='1', filters=wl_filters, limit='25')
+        wl = cifclient.search(limit=cifsdk.constants.WHITELIST_LIMIT, nolog='1', filters=wl_filters)
 
         f = feed_factory(self.filters['otype'])
 
