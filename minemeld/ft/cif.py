@@ -164,7 +164,7 @@ class Feed(basepoller.BasePollerFT):
         now = now.replace(days=-DAYS)
         wl_filters['reporttime'] = '{0}Z'.format(now.format('YYYY-MM-DDTHH:mm:ss'))
 
-        wl = cifclient.search(limit=options['whitelist_limit'], nolog, filters=wl_filters)
+        wl = cifclient.search(limit=options['whitelist_limit'], nolog='1', filters=wl_filters)
 
         f = feed_factory(options['otype'])
 
