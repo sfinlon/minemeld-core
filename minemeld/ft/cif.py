@@ -160,8 +160,6 @@ class Feed(basepoller.BasePollerFT):
         wl_filters['tags'] = 'whitelist'
         wl_filters['confidence'] = cifsdk.constants.WHITELIST_CONFIDENCE
 
-        now = arrow.utcnow()
-        now = now.replace(days=-DAYS)
         wl_filters['reporttime'] = '{0}Z'.format(now.format('YYYY-MM-DDTHH:mm:ss'))
 
         wl = cifclient.search(limit=cifsdk.constants.WHITELIST_LIMIT, nolog='1', filters=wl_filters)
