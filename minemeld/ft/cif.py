@@ -162,7 +162,7 @@ class Feed(basepoller.BasePollerFT):
 
         wl_filters['reporttime'] = '{0}Z'.format(now.format('YYYY-MM-DDTHH:mm:ss'))
 
-        wl = cifclient.search(limit=cifsdk.constants.WHITELIST_LIMIT, nolog='1', filters=wl_filters)
+        wl = cifclient.search(limit=cifsdk.constants.WHITELIST_LIMIT, nolog='1', filters=wl_filters, limit='25')
 
         f = feed_factory(self.filters['otype'])
 
