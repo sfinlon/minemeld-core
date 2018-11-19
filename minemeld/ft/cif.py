@@ -118,7 +118,7 @@ class Feed(basepoller.BasePollerFT):
 
         return [[indicator, attributes]]
 
-    def _build_iterator(self, now):
+    def _build_iterator(self, item, now):
         if self.token is None or self.remote is None or self.filters is None:
             LOG.info(
                 '%s - token, remote or filters not set, poll not performed',
@@ -158,20 +158,17 @@ class Feed(basepoller.BasePollerFT):
 
         wl_filters = copy.deepcopy(filters)
         wl_filters['tags'] = 'whitelist'
-        wl_filters['confidence'] = args.whitelist_confidence
+        wl_filters['confidence'] = cifsdk.constants.WHITELIST_CONFIDENCE
 
         now = arrow.utcnow()
         now = now.replace(days=-DAYS)
         wl_filters['reporttime'] = '{0}Z'.format(now.format('YYYY-MM-DDTHH:mm:ss'))
 
-        wl = cifclient.search(limit=options['whitelist_limit'], nolog='1', filters=wl_filters)
+        wl = cifclient.search(limit=cifsdk.constants.WHITELIST_LIMIT, nolog='1', filters=wl_filters)
 
-        f = feed_factory(options['otype'])
+        f = feed_factory(item.get('otype'))
 
         ret = cifclient.aggregate(ret)
-
-        if len(ret) != number_returned:
-            LOG.info('aggregation removed: {0} records'.format(number_returned - len(ret)))
 
         ret = f().process(ret, wl)
 
