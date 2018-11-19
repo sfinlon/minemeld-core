@@ -151,8 +151,27 @@ class Feed(basepoller.BasePollerFT):
             timeout=900
         )
 
+        ret = cifclient.search(limit=options['limit'], nolog=options['nolog'], filters=filters, sort=options['sortby'],
+                         sort_direction=options['sortby_direction'])
+
+        wl_filters = copy.deepcopy(filters)
+        wl_filters['tags'] = 'whitelist'
+        wl_filters['confidence'] = args.whitelist_confidence
+
+        now = arrow.utcnow()
+        now = now.replace(days=-DAYS)
+        wl_filters['reporttime'] = '{0}Z'.format(now.format('YYYY-MM-DDTHH:mm:ss'))
+
+        wl = cifclient.search(limit=options['whitelist_limit'], nolog=True, filters=wl_filters)
+
+        f = feed_factory(options['otype'])
+
+        ret = cifclient.aggregate(ret)
+
+        ret = f().process(ret, wl)
+
         try:
-            ret = cifclient.search(filters=filters, decode=False)
+            ret = f(ret, cols=options['fields'].split(','))
 
         except SystemExit as e:
             raise RuntimeError(str(e))
