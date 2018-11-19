@@ -118,7 +118,7 @@ class Feed(basepoller.BasePollerFT):
 
         return [[indicator, attributes]]
 
-    def _build_iterator(self, item, now):
+    def _build_iterator(self, now):
         if self.token is None or self.remote is None or self.filters is None:
             LOG.info(
                 '%s - token, remote or filters not set, poll not performed',
@@ -166,7 +166,7 @@ class Feed(basepoller.BasePollerFT):
 
         wl = cifclient.search(limit=cifsdk.constants.WHITELIST_LIMIT, nolog='1', filters=wl_filters)
 
-        f = feed_factory(item.get('otype'))
+        f = feed_factory(self.filters['otype'])
 
         ret = cifclient.aggregate(ret)
 
