@@ -172,9 +172,11 @@ class Feed(basepoller.BasePollerFT):
 
         ret = f().process(ret, wl)
 
+        print("attempting to print fields!")
+        print("fields: " + self.config.get('fields', cifsdk.constants.FIELDS))
+
         try:
-            print("attempting to print fields!")
-            print("fields: " + self.config.get('fields', cifsdk.constants.FIELDS))
+
             if len(ret) >= 1:
                 #print(ret)
                 #ret = f(ret, cols=self.config.get('fields', cifsdk.constants.FIELDS).split(','))
