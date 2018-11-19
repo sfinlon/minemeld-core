@@ -20,10 +20,10 @@ import os
 import arrow
 import ujson
 import yaml
+import copy
 
 import cifsdk.client
 import cifsdk.constants
-from cifsdk.format import factory as format_factory
 from cifsdk.feed import factory as feed_factory
 
 
@@ -154,8 +154,7 @@ class Feed(basepoller.BasePollerFT):
             timeout=900
         )
 
-        ret = cifclient.search(limit=options['limit'], nolog=options['nolog'], filters=filters, sort=options['sortby'],
-                         sort_direction=options['sortby_direction'])
+        ret = cifclient.search(filters=filters)
 
         wl_filters = copy.deepcopy(filters)
         wl_filters['tags'] = 'whitelist'
@@ -165,7 +164,7 @@ class Feed(basepoller.BasePollerFT):
         now = now.replace(days=-DAYS)
         wl_filters['reporttime'] = '{0}Z'.format(now.format('YYYY-MM-DDTHH:mm:ss'))
 
-        wl = cifclient.search(limit=options['whitelist_limit'], nolog=True, filters=wl_filters)
+        wl = cifclient.search(limit=options['whitelist_limit'], nolog, filters=wl_filters)
 
         f = feed_factory(options['otype'])
 
