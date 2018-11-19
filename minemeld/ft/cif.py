@@ -174,7 +174,7 @@ class Feed(basepoller.BasePollerFT):
             if len(ret) >= 1:
                 print(self.fields)
                 #ret = f(ret, cols=self.config.get('fields', cifsdk.constants.FIELDS).split(','))
-                return ujson.loads(ret)
+                print ujson.loads(ret)
 
             else:
                 LOG.info("no CIF results found...")
