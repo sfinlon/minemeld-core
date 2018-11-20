@@ -174,7 +174,7 @@ class Feed(basepoller.BasePollerFT):
 
         LOG.info("attempting to print fields!")
         LOG.info("self.fields is type %s", type(self.fields))
-        fields_list = ''.join(self.fields)
+        fields_list = ','.join(self.fields)
 
         LOG.info("fields: %s", fields_list)
 
@@ -184,6 +184,7 @@ class Feed(basepoller.BasePollerFT):
                 LOG.info(len(ret))
                 typeret = type(ret)
                 LOG.info("ret is type %s", typeret)
+                LOG.info(ret)
                 ret = f(ret, cols=fields_list)
                 #return ujson.loads(ret)
 
