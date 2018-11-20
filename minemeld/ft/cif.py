@@ -145,7 +145,7 @@ class Feed(basepoller.BasePollerFT):
             filters['reporttime'] = '{0}Z'.format(
                 arrow.get(self.last_successful_run/1000.0).format('YYYY-MM-DDTHH:mm:ss')
             )
-        LOG.debug('%s - filters: %s', self.name, filters)
+        LOG.info('%s - filters: %s', self.name, filters)
 
         cifclient = cifsdk.client.Client(
             token=self.token,
@@ -165,22 +165,21 @@ class Feed(basepoller.BasePollerFT):
         wl = cifclient.search(limit=cifsdk.constants.WHITELIST_LIMIT, nolog='1', filters=wl_filters)
 
         f = feed_factory(self.filters['otype'])
-        LOG.info("otype is : %s", self.filters['otype'])
+        LOG.info('otype is : %s', self.filters['otype'])
 
         ret = cifclient.aggregate(ret)
 
         ret = f().process(ret, wl)
 
-        LOG.info("attempting to print fields!")
-        LOG.info("self.fields is type %s", type(self.fields))
+        LOG.info('attempting to print fields!')
+        LOG.info('self.fields is type %s', type(self.fields))
         fields_list = ','.join(self.fields)
-        LOG.info("fields joined are: %s", fields_list)
-        LOG.info("ret is type %s", type(ret))
+        LOG.info('fields joined are: %s', fields_list)
+        LOG.info('ret is type %s', type(ret))
 
         try:
-
             if len(ret) >= 1:
-                LOG.info("ret is length of %s", len(ret))
+                LOG.info('ret is length of %s, len(ret))
                 #ret = f(ret, cols=fields_list)
                 LOG.info(ret)
                 #return ujson.dumps(ret)
