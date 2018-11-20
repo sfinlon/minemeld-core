@@ -184,8 +184,10 @@ class Feed(basepoller.BasePollerFT):
                 LOG.info(len(ret))
                 typeret = type(ret)
                 LOG.info("ret is type %s", typeret)
-                LOG.info(ret)
                 ret = f(ret, cols=fields_list)
+                typeret2 = type(ret)
+                LOG.info("ret2 is type %s", typeret2)
+
                 #return ujson.loads(ret)
 
             else:
