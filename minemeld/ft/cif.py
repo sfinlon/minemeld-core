@@ -131,8 +131,6 @@ class Feed(basepoller.BasePollerFT):
         filters = {}
         filters.update(self.filters)
 
-        self.filters['limit'] = '25'
-
         days = filters.pop('days', self.initial_days)
         now = arrow.get(now/1000.0)
 
@@ -148,6 +146,8 @@ class Feed(basepoller.BasePollerFT):
                 arrow.get(self.last_successful_run/1000.0).format('YYYY-MM-DDTHH:mm:ss')
             )
         LOG.debug('%s - filters: %s', self.name, filters)
+
+        filters['limit'] = 25
 
         cifclient = cifsdk.client.Client(
             token=self.token,
