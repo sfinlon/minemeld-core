@@ -166,8 +166,9 @@ class Feed(basepoller.BasePollerFT):
 
         f = feed_factory(self.filters['otype'])
         LOG.info('otype is : %s', self.filters['otype'])
-
+        LOG.info('ret is: %s', ret)
         ret = cifclient.aggregate(ret)
+        LOG.info('ret is: %s', ret)
 
         ret = f().process(ret, wl)
 
