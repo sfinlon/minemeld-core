@@ -173,6 +173,8 @@ class Feed(basepoller.BasePollerFT):
 
         LOG.info("attempting to print fields!")
         LOG.info("self.fields is type %s", type(self.fields))
+        fields_list = ','.join(self.fields)
+        LOG.info("fields joined are: %s", fields_list)
         LOG.info("ret is type %s", type(ret))
 
         try:
