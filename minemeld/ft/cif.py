@@ -154,7 +154,7 @@ class Feed(basepoller.BasePollerFT):
             timeout=900
         )
 
-        ret = cifclient.search(limit='25', filters=filters, decode=False)
+        ret = cifclient.search(limit=25, filters=filters, decode=False)
 
         wl_filters = copy.deepcopy(filters)
         wl_filters['tags'] = 'whitelist'
