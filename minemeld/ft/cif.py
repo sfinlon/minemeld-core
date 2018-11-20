@@ -147,8 +147,6 @@ class Feed(basepoller.BasePollerFT):
             )
         LOG.debug('%s - filters: %s', self.name, filters)
 
-        filters['limit'] = 25
-
         cifclient = cifsdk.client.Client(
             token=self.token,
             remote=self.remote,
@@ -156,7 +154,7 @@ class Feed(basepoller.BasePollerFT):
             timeout=900
         )
 
-        ret = cifclient.search(filters=filters)
+        ret = cifclient.search(limit='25', filters=filters)
 
         wl_filters = copy.deepcopy(filters)
         wl_filters['tags'] = 'whitelist'
@@ -167,6 +165,7 @@ class Feed(basepoller.BasePollerFT):
         wl = cifclient.search(limit=cifsdk.constants.WHITELIST_LIMIT, nolog='1', filters=wl_filters)
 
         f = feed_factory(self.filters['otype'])
+        LOG.info("otype is : %s", self.filters['otype'])
 
         ret = cifclient.aggregate(ret)
 
