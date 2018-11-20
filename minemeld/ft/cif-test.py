@@ -153,7 +153,7 @@ class Feed(basepoller.BasePollerFT):
         )
 
         try:
-            ret = cifclient.search(limit='25', filters=filters, decode=False)
+            ret = cifclient.search(filters=filters, decode=False)
 
         except SystemExit as e:
             raise RuntimeError(str(e))
