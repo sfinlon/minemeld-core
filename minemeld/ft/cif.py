@@ -181,7 +181,7 @@ class Feed(basepoller.BasePollerFT):
             if len(ret) >= 1:
                 LOG.info("ret is length of %s", len(ret))
                 #ret = f(ret, cols=fields_list)
-                return ujson.loads(ret)
+                return ujson.loads(str(ret))
 
             else:
                 LOG.info("no CIF results found...")
