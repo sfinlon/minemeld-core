@@ -179,7 +179,7 @@ class Feed(basepoller.BasePollerFT):
 
         try:
             if len(ret) >= 1:
-                LOG.info('ret is length of %s, len(ret))
+                LOG.info('ret is length of %s', len(ret))
                 #ret = f(ret, cols=fields_list)
                 LOG.info(ret)
                 #return ujson.dumps(ret)
