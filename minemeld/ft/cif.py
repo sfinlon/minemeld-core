@@ -187,8 +187,7 @@ class Feed(basepoller.BasePollerFT):
                 ret = f(ret, cols=fields_list)
                 typeret2 = type(ret)
                 LOG.info("ret2 is type %s", typeret2)
-
-                #return ujson.loads(ret)
+                return ujson.loads(ret)
 
             else:
                 LOG.info("no CIF results found...")
