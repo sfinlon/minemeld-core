@@ -176,7 +176,7 @@ class Feed(basepoller.BasePollerFT):
         LOG.info("self.fields is type %s", type(self.fields))
         fields_list = ''.join(self.fields)
 
-        LOG.info("fields: %s", str1)
+        LOG.info("fields: %s", fields_list)
 
         try:
 
