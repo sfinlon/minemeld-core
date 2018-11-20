@@ -173,7 +173,7 @@ class Feed(basepoller.BasePollerFT):
         ret = f().process(ret, wl)
 
         LOG.info("attempting to print fields!")
-        LOG.info("fields: " + self.config.get('fields', cifsdk.constants.FIELDS))
+        LOG.info("fields: %s", self.fields)
 
         try:
 
