@@ -173,7 +173,7 @@ class Feed(basepoller.BasePollerFT):
         ret = f().process(ret, wl)
 
         LOG.info("attempting to print fields!")
-        LOG.info("fields: %s", self.fields.split(','))
+        LOG.info("fields: %s", str.self.fields.split(','))
 
         try:
 
