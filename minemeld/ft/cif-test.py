@@ -153,13 +153,13 @@ class Feed(basepoller.BasePollerFT):
         )
 
         try:
-            ret = cifclient.search(filters=filters, decode=False, limit='25')
+            ret = cifclient.search(filters=filters, decode=False)
+            LOG.info("Attempting to print out a copy of the results!")
+            LOG.info('output of results is %s', ret)
+            LOG.info('output of json crap is %s', ujson.loads(ret))
 
         except SystemExit as e:
             raise RuntimeError(str(e))
-        LOG.info("Attempting to print out a copy of the results!")
-        LOG.info('output of results is %s', ret)
-        LOG.info('output of json crap is %s', ujson.loads(ret))
 
         return ujson.loads(ret)
 
