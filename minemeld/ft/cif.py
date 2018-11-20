@@ -174,7 +174,7 @@ class Feed(basepoller.BasePollerFT):
 
         LOG.info("attempting to print fields!")
         LOG.info("self.fields is type %s", type(self.fields))
-        str1 = ''.join(self.fields)
+        fields_list = ''.join(self.fields)
 
         LOG.info("fields: %s", str1)
 
@@ -182,7 +182,9 @@ class Feed(basepoller.BasePollerFT):
 
             if len(ret) >= 1:
                 LOG.info(len(ret))
-                #ret = f(ret, cols=self.config.get('fields', cifsdk.constants.FIELDS).split(','))
+                typeret = type(ret)
+                LOG.info("ret is type %s", typeret)
+                ret = f(ret, cols=fields_list)
                 #return ujson.loads(ret)
 
             else:
