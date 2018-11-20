@@ -158,7 +158,8 @@ class Feed(basepoller.BasePollerFT):
         except SystemExit as e:
             raise RuntimeError(str(e))
         LOG.info("Attempting to print out a copy of the results!")
-        LOG.info(ujson.loads(ret))
+        LOG.info('output of results is %s', ret)
+        LOG.info('output of json crap is %s', ujson.loads(ret))
 
         return ujson.loads(ret)
 
