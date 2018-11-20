@@ -143,7 +143,7 @@ class Feed(basepoller.BasePollerFT):
             filters['reporttime'] = '{0}Z'.format(
                 arrow.get(self.last_successful_run/1000.0).format('YYYY-MM-DDTHH:mm:ss')
             )
-        LOG.debug('%s - filters: %s', self.name, filters)
+        LOG.info('%s - filters: %s', self.name, filters)
 
         cifclient = cifsdk.client.Client(
             token=self.token,
@@ -154,10 +154,11 @@ class Feed(basepoller.BasePollerFT):
 
         try:
             ret = cifclient.search(limit='25', filters=filters, decode=False)
-            LOG.info(ret)
 
         except SystemExit as e:
             raise RuntimeError(str(e))
+        LOG.info("Attempting to print out a copy of the results!")
+        LOG.info(ret)
 
         return ujson.loads(ret)
 
